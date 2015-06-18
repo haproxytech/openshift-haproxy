@@ -14,4 +14,5 @@ HAPROXY_MD5=$(curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/haproxy-$HAPROXY_
 sed -r -i -e "s!^(ENV HAPROXY_SRC_URL) .*!\1 $HAPROXY_SRC_URL!;
             s!^(ENV HAPROXY_BRANCH) .*!\1 $HAPROXY_BRANCH!;
             s!^(ENV HAPROXY_MINOR) .*!\1 $HAPROXY_MINOR!;
+            s!^(LABEL Version) .*!\1 $HAPROXY_MINOR!;
             s!^(ENV HAPROXY_MD5) .*!\1 $HAPROXY_MD5!" "$DOCKERFILE"

@@ -1,5 +1,11 @@
 FROM rhel:latest
 
+LABEL Name HAProxy OSS
+LABEL Release OSS Edition
+LABEL Vendor HAProxy
+LABEL Version 1.5.12
+LABEL RUN /usr/bin/docker -d IMAGE
+
 MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 
 ENV HAPROXY_BRANCH 1.5
