@@ -1,12 +1,12 @@
-FROM rhel:latest
+FROM rhel7
+
+MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 
 LABEL Name HAProxy OSS
 LABEL Release OSS Edition
 LABEL Vendor HAProxy
 LABEL Version 1.5.12
 LABEL RUN /usr/bin/docker -d IMAGE
-
-MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 
 ENV HAPROXY_BRANCH 1.5
 ENV HAPROXY_MINOR 1.5.12
@@ -16,8 +16,8 @@ ENV HAPROXY_SRC_URL http://www.haproxy.org/download/
 ENV HAPROXY_UID haproxy
 ENV HAPROXY_GID haproxy
 
-RUN yum -y update && \
-    yum -y install gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
+RUN yum update -y && \
+    yum install -y gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
     curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/haproxy-$HAPROXY_MINOR.tar.gz" -o haproxy.tar.gz && \
     echo "$HAPROXY_MD5  haproxy.tar.gz" | md5sum -c - && \
     groupadd "$HAPROXY_GID" && \
@@ -31,7 +31,7 @@ RUN yum -y update && \
     ln -s /usr/local/sbin/haproxy /usr/sbin/haproxy && \
     mkdir -p /var/lib/haproxy && \
     rm -rf /tmp/haproxy && \
-    yum -y remove gcc make && \
+    yum remove -y gcc make && \
     yum clean all
 
 ADD ./cfg_files/cli /usr/bin/cli
