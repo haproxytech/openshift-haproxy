@@ -5,12 +5,12 @@ MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 LABEL Name HAProxy OSS
 LABEL Release OSS Edition
 LABEL Vendor HAProxy
-LABEL Version 1.5.12
+LABEL Version 1.5.14
 LABEL RUN /usr/bin/docker -d IMAGE
 
 ENV HAPROXY_BRANCH 1.5
-ENV HAPROXY_MINOR 1.5.12
-ENV HAPROXY_MD5 4b94b257f16d88c315716b062b22e48a
+ENV HAPROXY_MINOR 1.5.14
+ENV HAPROXY_MD5 ad9d7262b96ba85a0f8c6acc6cb9edde
 ENV HAPROXY_SRC_URL http://www.haproxy.org/download/
 
 ENV HAPROXY_UID haproxy
