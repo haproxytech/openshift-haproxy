@@ -27,7 +27,7 @@ RUN yum update -y && \
     rm -f haproxy.tar.gz && \
     make -C /tmp/haproxy TARGET=linux2628 CPU=generic USE_PCRE=1 USE_REGPARM=1 USE_OPENSSL=1 \
                             USE_ZLIB=1 USE_TFO=1 USE_LINUX_TPROXY=1 \
-                            all install && \
+                            all install-bin install-man && \
     ln -s /usr/local/sbin/haproxy /usr/sbin/haproxy && \
     mkdir -p /var/lib/haproxy && \
     rm -rf /tmp/haproxy && \
