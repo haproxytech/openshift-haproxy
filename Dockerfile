@@ -16,8 +16,7 @@ ENV HAPROXY_SRC_URL http://www.haproxy.org/download/
 ENV HAPROXY_UID haproxy
 ENV HAPROXY_GID haproxy
 
-RUN yum update -y && \
-    yum install -y gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
+RUN yum install -y gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
     curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/haproxy-$HAPROXY_MINOR.tar.gz" -o haproxy.tar.gz && \
     echo "$HAPROXY_MD5  haproxy.tar.gz" | md5sum -c - && \
     groupadd "$HAPROXY_GID" && \
