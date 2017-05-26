@@ -4,7 +4,16 @@ MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 LABEL name="haproxytech/haproxy" \
       vendor="HAProxy" \
       version="1.7.5" \
-      release="1"
+      release="1" \
+      url="https://www.haproxy.org" \
+      summary="HAProxy OpenSource" \
+      description="HAProxy OSS" \
+      run='docker run -tdi --name ${NAME} ${IMAGE}' \
+      io.k8s.description="HAProxy OpenSource" \
+      io.k8s.display-name="HAProxy OSS" \
+      io.openshift.expose-services="80/tcp:http,443/tcp:https" \
+      io.openshift.tags="http,https,proxy,loadbalancer"
+
 
 ENV HAPROXY_BRANCH 1.7
 ENV HAPROXY_MINOR 1.7.5
@@ -30,6 +39,7 @@ RUN yum clean all && yum-config-manager --disable \* &> /dev/null && \
                             all install-bin install-man && \
     ln -s /usr/local/sbin/haproxy /usr/sbin/haproxy && \
     mkdir -p /var/lib/haproxy && \
+    cp /tmp/haproxy/doc/haproxy.1 /help.1 && \
     rm -rf /tmp/haproxy && \
     yum remove -y gcc make && \
     yum clean all
