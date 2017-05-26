@@ -19,6 +19,4 @@ fi
 docker build -t "$DOCKER_TAG:$HAPROXY_MINOR" .
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "$DOCKER_TAG:latest"
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "registry.rhc4tp.openshift.com/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
-docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "registry.rhc4tp.openshift.com/$HAPROXY_REPO/$DOCKER_TAG:latest"
 docker push "registry.rhc4tp.openshift.com/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
-docker push "registry.rhc4tp.openshift.com/$HAPROXY_REPO/$DOCKER_TAG:latest"
