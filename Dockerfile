@@ -1,22 +1,23 @@
-FROM rhel7
-
+FROM registry.access.redhat.com/rhel7
 MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 
-LABEL Name HAProxy OSS
-LABEL Release OSS Edition
-LABEL Vendor HAProxy
-LABEL Version 1.7.5
-LABEL RUN /usr/bin/docker -d IMAGE
+LABEL name="haproxytech/haproxy" \
+      vendor="HAProxy" \
+      version="1.7.5" \
+      release="1"
 
 ENV HAPROXY_BRANCH 1.7
 ENV HAPROXY_MINOR 1.7.5
 ENV HAPROXY_MD5 ed84c80cb97852d2aa3161ed16c48a1c
-ENV HAPROXY_SRC_URL http://www.haproxy.org/download/
+ENV HAPROXY_SRC_URL http://www.haproxy.org/download
 
 ENV HAPROXY_UID haproxy
 ENV HAPROXY_GID haproxy
 
-RUN yum install -y gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
+RUN yum clean all && yum-config-manager --disable \* &> /dev/null && \
+    yum-config-manager --enable rhel-7-server-rpms,rhel-7-server-optional-rpms &> /dev/null && \
+    yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical --setopt=tsflags=nodocs && \
+    yum -y install --setopt=tsflags=nodocs gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
     curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/haproxy-$HAPROXY_MINOR.tar.gz" -o haproxy.tar.gz && \
     echo "$HAPROXY_MD5  haproxy.tar.gz" | md5sum -c - && \
     groupadd "$HAPROXY_GID" && \
