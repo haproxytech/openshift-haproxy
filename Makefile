@@ -42,6 +42,7 @@ openshift-test:
 	sleep 5
 	oc describe pod `oc get pod --template '{{(index .items 0).metadata.name }}'`
 	curl `oc get svc/${IMAGE_NAME} -o json | jq -r '.spec.clusterIP'`:8080
+	oc exec `oc get pod --template '{{(index .items 0).metadata.name }}'` ps aux
 
 run:
 	docker run -tdi -u $(shell shuf -i 1000010000-1000020000 -n 1) -p 8080:8080 ${CONTEXT}/${IMAGE_NAME}:${TARGET}-${VERSION}
