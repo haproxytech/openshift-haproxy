@@ -2,12 +2,13 @@
 
 DOCKER_TAG="haproxy"
 HAPROXY_REPO="p1458402064ad02bbe6a925de6df272994154a72a9"
+DOCKERFILE=${1:-Dockerfile}
 
-HAPROXY_MINOR_OLD=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' Dockerfile)
+HAPROXY_MINOR_OLD=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' ${DOCKERFILE})
 
-./update.sh
+./update.sh ${DOCKERFILE}
 
-HAPROXY_MINOR=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' Dockerfile)
+HAPROXY_MINOR=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' ${DOCKERFILE})
 
 if [ "x$1" != "xforce" ]; then
     if [ "x$HAPROXY_MINOR_OLD" = "x$HAPROXY_MINOR" ]; then
@@ -16,7 +17,7 @@ if [ "x$1" != "xforce" ]; then
     fi
 fi
 
-docker build -t "$DOCKER_TAG:$HAPROXY_MINOR" .
+docker build -t "$DOCKER_TAG:$HAPROXY_MINOR" -f ${DOCKERFILE} .
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "$DOCKER_TAG:latest"
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "registry.rhc4tp.openshift.com/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
 docker push "registry.rhc4tp.openshift.com/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
