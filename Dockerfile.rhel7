@@ -1,4 +1,4 @@
-FROM docker.io/centos:7
+FROM registry.access.redhat.com/rhel7
 MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 
 LABEL name="haproxytech/haproxy" \
@@ -21,7 +21,11 @@ ENV HAPROXY_SRC_URL http://www.haproxy.org/download
 
 ENV HAPROXY_UID 10001
 
-RUN yum -y install --setopt=tsflags=nodocs gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
+RUN REPOLIST=rhel-7-server-rpms,rhel-7-server-optional-rpms && \
+    yum -y update-minimal --disablerepo "*" --enablerepo rhel-7-server-rpms --setopt=tsflags=nodocs \
+      --security --sec-severity=Important --sec-severity=Critical && \
+    yum -y install --disablerepo "*" --enablerepo ${REPOLIST} --setopt=tsflags=nodocs \
+      gcc make openssl-devel pcre-devel zlib-devel tar curl socat && \
     curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/haproxy-$HAPROXY_MINOR.tar.gz" -o haproxy.tar.gz && \
     echo "$HAPROXY_MD5  haproxy.tar.gz" | md5sum -c - && \
     useradd -l -u ${HAPROXY_UID} -r -G 0 -s /sbin/nologin -c "haproxy user" haproxy && \

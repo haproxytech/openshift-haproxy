@@ -9,8 +9,15 @@ system with Software Collections entitlements available.
 
 To build the Dockerfile, run:
 ```
-# cd openshift-haproxy
-# docker build -t=haproxy .
+$ cd openshift-haproxy
+# build on centos7
+$ make
+
+# OR build on rhel7
+# make TARGET=rhel7
+
+$ make run
+$ curl localhost:8080
 
 General container help
 ----------------------
