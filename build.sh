@@ -10,7 +10,7 @@ HAPROXY_MINOR_OLD=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' ${DOCKERFILE})
 
 HAPROXY_MINOR=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' ${DOCKERFILE})
 
-if [ "x$1" != "xforce" ]; then
+if [ "x$2" != "xforce" ]; then
     if [ "x$HAPROXY_MINOR_OLD" = "x$HAPROXY_MINOR" ]; then
         echo "No new releases, not building anything."
         exit 0
