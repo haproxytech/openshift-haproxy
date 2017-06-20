@@ -8,7 +8,7 @@ Building this Dockerfile requires a Red Hat Enterprise Linux 7 host
 system with Software Collections entitlements available.
 
 To build the Dockerfile, run:
-```
+```shell
 $ cd openshift-haproxy
 # build on centos7
 $ make
@@ -28,3 +28,8 @@ Run `docker exec -ti CONTAINERID container-entrypoint` to access already running
 
 To get more help on HAProxy, visit http://www.haproxy.org/ . More detailed documentation
 is available at http://www.haproxy.org/#docs.
+```
+To update, build, & push the image to the RH container zone, run:
+```shell
+$ ./build.sh Dockerfile.rhel7
+```

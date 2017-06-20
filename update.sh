@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 
-DOCKERFILE=Dockerfile
+DOCKERFILE=$1
 HAPROXY_BRANCH=1.7
 HAPROXY_SRC_URL=http://www.haproxy.org/download
 
