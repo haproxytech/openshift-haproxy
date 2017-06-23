@@ -47,6 +47,8 @@ RUN REPOLIST=rhel-7-server-rpms,rhel-7-server-optional-rpms && \
 ADD ./cfg_files/cli /usr/bin/cli
 ADD ./cfg_files/haproxy.cfg /etc/haproxy/haproxy.cfg
 
+COPY licenses /licenses
+
 EXPOSE 8080 8443
 
 USER 10001

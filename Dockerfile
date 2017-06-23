@@ -43,6 +43,8 @@ RUN yum -y install --setopt=tsflags=nodocs gcc make openssl-devel pcre-devel zli
 ADD ./cfg_files/cli /usr/bin/cli
 ADD ./cfg_files/haproxy.cfg /etc/haproxy/haproxy.cfg
 
+COPY licenses /licenses
+
 EXPOSE 8080 8443
 
 USER 10001
