@@ -1,8 +1,8 @@
 #!/bin/sh
 
+DOCKERFILE=${1:-Dockerfile}
 DOCKER_TAG="haproxy"
 HAPROXY_REPO="p1458402064ad02bbe6a925de6df272994154a72a9"
-DOCKERFILE=${1:-Dockerfile}
 
 HAPROXY_MINOR_OLD=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' ${DOCKERFILE})
 
