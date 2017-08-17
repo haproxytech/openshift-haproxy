@@ -17,6 +17,7 @@ if [ "x$2" != "xforce" ]; then
     fi
 fi
 
+docker pull $(awk '/^FROM/ {print $2}' ${DOCKERFILE})
 docker build -t "$DOCKER_TAG:$HAPROXY_MINOR" -f ${DOCKERFILE} .
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "$DOCKER_TAG:latest"
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "registry.rhc4tp.openshift.com:443/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
