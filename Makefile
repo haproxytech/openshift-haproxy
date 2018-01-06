@@ -1,5 +1,5 @@
 CONTEXT = haproxytech
-VERSION = 1.7.6
+VERSION = 1.8.3
 IMAGE_NAME = openshift-haproxy
 TARGET = centos7
 REGISTRY = docker-registry.default.svc.cluster.local
