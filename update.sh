@@ -2,7 +2,7 @@
 set -e
 
 DOCKERFILE=${1:-Dockerfile}
-HAPROXY_BRANCH=1.8
+HAPROXY_BRANCH=1.7
 HAPROXY_SRC_URL=http://www.haproxy.org/download
 
 HAPROXY_MINOR=$(curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/" | \
