@@ -20,5 +20,5 @@ fi
 docker pull $(awk '/^FROM/ {print $2}' ${DOCKERFILE})
 docker build -t "$DOCKER_TAG:$HAPROXY_MINOR" -f ${DOCKERFILE} .
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "$DOCKER_TAG:latest"
-docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "registry.rhc4tp.openshift.com:443/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
-docker push "registry.rhc4tp.openshift.com:443/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
+docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "scan.connect.redhat.com/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
+docker push "scan.connect.redhat.com/$HAPROXY_REPO/$DOCKER_TAG:$HAPROXY_MINOR"
