@@ -3,7 +3,7 @@ MAINTAINER Dinko Korunic <dkorunic@haproxy.com>
 
 LABEL name="haproxytech/haproxy" \
       vendor="HAProxy" \
-      version="1.8.20" \
+      version="1.8.23" \
       release="1" \
       url="https://www.haproxy.org" \
       summary="HAProxy OpenSource" \
@@ -15,8 +15,8 @@ LABEL name="haproxytech/haproxy" \
       io.openshift.tags="http,https,proxy,loadbalancer"
 
 ENV HAPROXY_BRANCH 1.8
-ENV HAPROXY_MINOR 1.8.20
-ENV HAPROXY_MD5 abf9b7b1aa84e0839501e006fc20d7fd
+ENV HAPROXY_MINOR 1.8.23
+ENV HAPROXY_MD5 6c35b83a9969449c4b79783a2119551e
 ENV HAPROXY_SRC_URL http://www.haproxy.org/download
 
 ENV HAPROXY_UID 10001
