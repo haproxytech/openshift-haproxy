@@ -41,7 +41,7 @@ openshift-test:
 	oc status
 	sleep 5
 	oc describe pod `oc get pod --template '{{(index .items 0).metadata.name }}'`
-	curl `oc get svc/${IMAGE_NAME} -o json | jq -r '.spec.clusterIP'`:8080
+	curl `oc get svc/${IMAGE_NAME} --template '{{.spec.clusterIP}}:{{index .spec.ports 0 "port"}}'`
 	oc exec `oc get pod --template '{{(index .items 0).metadata.name }}'` ps aux
 
 run:
