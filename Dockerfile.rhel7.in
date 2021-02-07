@@ -1,0 +1,8 @@
+FROM registry.access.redhat.com/rhel7
+#include "Dockerfile.in"
+RUN REPOLIST=rhel-7-server-rpms,rhel-7-server-optional-rpms && \
+    yum -y update-minimal --disablerepo "*" --enablerepo rhel-7-server-rpms --setopt=tsflags=nodocs \
+     --security --sec-severity=Important --sec-severity=Critical && \
+    yum -y install --disablerepo "*" --enablerepo ${REPOLIST} --setopt=tsflags=nodocs \\
+
+#include "Dockerfile.main.in"

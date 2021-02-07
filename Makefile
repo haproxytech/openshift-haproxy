@@ -1,5 +1,5 @@
 CONTEXT = haproxytech
-VERSION = 1.8.20
+VERSION = 1.9.16
 IMAGE_NAME = openshift-haproxy
 TARGET = centos7
 REGISTRY = docker-registry.default.svc.cluster.local
@@ -10,11 +10,21 @@ OC_PASS = developer
 ifeq ($(TARGET),rhel7)
 	DFILE := Dockerfile.${TARGET}
 else
-	DFILE := Dockerfile
+	DFILE := Dockerfile.centos7
 endif
 
 all: build
-build:
+
+Dockerfile.centos7:
+	cpp -E Dockerfile.centos7.in $@
+
+Dockerfile.rhel7:
+	cpp -E Dockerfile.rhel7.in $@
+
+Dockerfile:
+	cpp -E $(DFILE).in $(DFILE)
+
+build: Dockerfile
 	docker build --pull -t ${CONTEXT}/${IMAGE_NAME}:${TARGET}-${VERSION} -t ${CONTEXT}/${IMAGE_NAME} -f ${DFILE} .
 	@if docker images ${CONTEXT}/${IMAGE_NAME}:${TARGET}-${VERSION}; then touch build; fi
 
@@ -48,4 +58,4 @@ run:
 	docker run -tdi -u $(shell shuf -i 1000010000-1000020000 -n 1) -p 8080:8080 ${CONTEXT}/${IMAGE_NAME}:${TARGET}-${VERSION}
 
 clean:
-	rm -f build
+	rm -f build Dockerfile.centos7 Dockerfile.rhel7
