@@ -1,9 +1,9 @@
 #!/bin/sh
 set -e
 
-DOCKERFILE=${1:-Dockerfile}
+DOCKERFILE=Dockerfile.in
 HAPROXY_BRANCH=1.8
-HAPROXY_SRC_URL=http://www.haproxy.org/download
+HAPROXY_SRC_URL="http://www.haproxy.org/download"
 
 HAPROXY_MINOR=$(curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/" | \
     grep -o "<a href=\"haproxy-$HAPROXY_BRANCH.*\.tar\.gz\">" | \
@@ -11,7 +11,7 @@ HAPROXY_MINOR=$(curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/" | \
 HAPROXY_MD5=$(curl -sfSL "$HAPROXY_SRC_URL/$HAPROXY_BRANCH/src/haproxy-$HAPROXY_MINOR.tar.gz.md5" | \
     awk '{print $1}')
 
-sed -r -i -e "s!^(ENV HAPROXY_SRC_URL) .*!\1 $HAPROXY_SRC_URL!;
+sed -r -i -e "s!^(ENV HAPROXY_SRC_URL) .*!\1 \"$HAPROXY_SRC_URL\"!;
             s!^(ENV HAPROXY_BRANCH) .*!\1 $HAPROXY_BRANCH!;
             s!^(ENV HAPROXY_MINOR) .*!\1 $HAPROXY_MINOR!;
             s!([[:space:]]*)version=\"[^\"]*\"(.*)!\1version=\"$HAPROXY_MINOR\"\2!;

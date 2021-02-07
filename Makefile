@@ -15,6 +15,12 @@ endif
 
 all: build
 
+Dockerfile.centos7:
+	cpp -E Dockerfile.centos7.in $@
+
+Dockerfile.rhel7:
+	cpp -E Dockerfile.rhel7.in $@
+
 Dockerfile:
 	cpp -E $(DFILE).in $(DFILE)
 
