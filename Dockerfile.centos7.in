@@ -1,0 +1,5 @@
+FROM docker.io/centos:7
+#include "Dockerfile.in"
+RUN yum -y install --setopt=tsflags=nodocs \\
+
+#include "Dockerfile.main.in"
