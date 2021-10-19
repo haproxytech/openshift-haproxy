@@ -1,14 +1,14 @@
 #!/bin/sh
 
-DOCKERFILE=${1:-Dockerfile}
+DOCKERFILE=${1:-Dockerfile.centos7}
 DOCKER_TAG="haproxy"
 HAPROXY_REPO="p1458402064ad02bbe6a925de6df272994154a72a9"
 
-HAPROXY_MINOR_OLD=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' ${DOCKERFILE})
+HAPROXY_MINOR_OLD=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' Dockerfile.in)
 
-./update.sh ${DOCKERFILE}
+./update.sh
 
-HAPROXY_MINOR=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' ${DOCKERFILE})
+HAPROXY_MINOR=$(awk '/^ENV HAPROXY_MINOR/ {print $NF}' Dockerfile.in)
 
 if [ "x$2" != "xforce" ]; then
     if [ "x$HAPROXY_MINOR_OLD" = "x$HAPROXY_MINOR" ]; then
@@ -17,6 +17,7 @@ if [ "x$2" != "xforce" ]; then
     fi
 fi
 
+make ${DOCKERFILE}
 docker pull $(awk '/^FROM/ {print $2}' ${DOCKERFILE})
 docker build -t "$DOCKER_TAG:$HAPROXY_MINOR" -f ${DOCKERFILE} .
 docker tag "$DOCKER_TAG:$HAPROXY_MINOR" "$DOCKER_TAG:latest"
